@@ -1,42 +1,54 @@
 // arquivo: components/CustomInput.tsx
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TextInputProps } from 'react-native';
 
-interface CustomInputProps {
+// Estende as propriedades padrão do TextInput do React Native
+interface CustomInputProps extends TextInputProps {
   label: string;
-  placeholder: string;
-  secureTextEntry?: boolean;
 }
 
-export default function CustomInput({ label, placeholder, secureTextEntry = false }: CustomInputProps) {
+export default function CustomInput({ 
+  label, 
+  value, 
+  onChangeText, 
+  placeholder, 
+  secureTextEntry, 
+  ...rest 
+}: CustomInputProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor="#95a5a6" // Cinza mais suave para o placeholder
+        placeholderTextColor="#999999"
+        {...rest}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { marginBottom: 15 },
-  label: { 
-    fontSize: 16, 
-    color: '#2c3e50', // Azul-escuro padrão da tela principal
-    marginBottom: 5, 
-    fontWeight: 'bold' 
+  container: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#b8860b',
+    marginBottom: 6,
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#e0e0e0', // Borda sutil igual aos cards dos santos
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
     backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#d4af37',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
     color: '#2c3e50',
   },
 });
